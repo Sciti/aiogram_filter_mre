@@ -8,7 +8,6 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from name_filter import NameFilter
-from serial_filter import SerialFilter
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -26,17 +25,6 @@ class StGroup(StatesGroup):
 @dp.message(Command('Start'))
 async def start(message: types.Message):
     await message.answer(f"Привет, {message.from_user.username}")
-
-@dp.message(SerialFilter())
-async def serials_message(
-    message: types.Message,
-    correct_serials: dict,
-    incorrect_serials: dict
-):
-    await message.answer(
-        text=f"Серийные номера: {correct_serials}\n"
-        f"Неправильные серийные номера: {incorrect_serials}"
-    )
 
 @dp.message(Command('name'))
 async def name_entrypoint(
